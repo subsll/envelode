@@ -1,5 +1,5 @@
 dist/
-envelode
+/envelode
 *.test
 *.out
 coverage.out
