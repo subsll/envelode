@@ -1,0 +1,28 @@
+Return-Path: <bounce@example.com>
+Received: from mail.example.com (mail.example.com [192.0.2.10]) by mx.recipient.test with ESMTPS id abc123 for <user@recipient.test>; Tue, 1 Nov 2026 12:00:00 +0000
+Received-SPF: pass (example.com designates 192.0.2.10 as permitted sender) client-ip=192.0.2.10; envelope-from=bounce@example.com; helo=mail.example.com;
+Authentication-Results: mx.recipient.test; spf=pass smtp.mailfrom=example.com; dkim=pass header.d=example.com header.s=sel1; dmarc=pass header.from=example.com
+DKIM-Signature: v=1; a=rsa-sha256; d=example.com; s=sel1; h=from:to:subject; bh=abc; b=def
+From: "Example Sender" <sender@example.com>
+Sender: sender@example.com
+Reply-To: support@example.com
+To: User <user@recipient.test>
+Cc: cc@recipient.test
+Subject: =?UTF-8?Q?Test_=E2=9C=89?=
+Date: Tue, 1 Nov 2026 12:00:00 +0000
+Message-ID: <id@example.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="b1"
+
+--b1
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+SECRET BODY should not appear.
+--b1
+Content-Type: application/octet-stream; name="sample.bin"
+Content-Disposition: attachment; filename="sample.bin"
+Content-Transfer-Encoding: base64
+
+aGVsbG8gYXR0YWNobWVudA==
+--b1--
