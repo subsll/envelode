@@ -18,6 +18,59 @@ Requires Go 1.25 or newer:
 go install github.com/subsll/envelode/cmd/envelode@latest
 ```
 
+### `envelode: command not found` after installing
+
+`go install` puts the binary in `$(go env GOBIN)` if that variable is set.
+Otherwise it uses `$(go env GOPATH)/bin` — usually `~/go/bin` on macOS and
+Linux. That directory is not always on your `PATH`, and by default `go install`
+does not write to `/usr/local/bin`.
+
+First confirm the binary exists:
+
+```sh
+ls -l "$(go env GOPATH)/bin/envelode"
+# If GOBIN is set instead:
+ls -l "$(go env GOBIN)/envelode"
+```
+
+Run it directly:
+
+```sh
+"$(go env GOPATH)/bin/envelode" --version
+```
+
+Then add Go's binary directory to your shell. For macOS/zsh:
+
+```sh
+echo 'export PATH="$(go env GOPATH)/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+rehash
+```
+
+For Linux/bash:
+
+```sh
+echo 'export PATH="$(go env GOPATH)/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+hash -r
+```
+
+If `go env GOBIN` returns a path, use that directory instead:
+
+```sh
+echo 'export PATH="$(go env GOBIN):$PATH"' >> ~/.zshrc
+source ~/.zshrc
+rehash
+```
+
+Open a new terminal if the current one still has a stale command cache, then
+check:
+
+```sh
+command -v envelode
+envelode --version
+```
+
 Or build from source:
 
 ```sh
